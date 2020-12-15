@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>DROBAHA</title>
+    <title>Drobaha_Margaryta</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
@@ -38,10 +38,10 @@ var generateSurfacePortionFunction = function(param=true) {
 
     for (const param of [-1, 1]) {
 		var geometry = new THREE.ParametricGeometry( generateSurfacePortionFunction(param), 40, 40);
-		geometry.scale(0.1, 0.1, 0.1);
+		geometry.scale(5, 5, 5);
         var wireframe = new THREE.WireframeGeometry( geometry );
         var material = new THREE.LineBasicMaterial( {
-            color: 0xffffff
+            color: 0xffc0cb
         } );
         var surface = new THREE.LineSegments( wireframe, material );
 
@@ -66,7 +66,7 @@ function initialize()
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	renderer.setSize( 700,500 );
+	renderer.setSize( 1920,1080 );
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
