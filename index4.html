@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Practical Assignment 4</title>
+	<script src="three.js"></script>
+	<script src="threex-artoolkitcontext.js"></script>
+	<script src="threex-artoolkitsource.js"></script>
+	<script src="threex-arbasecontrols.js"></script>
+    <script src="threex-armarkercontrols.js"></script>
+	<script src="artoolkit.min.js"></script>
+	<script src="artoolkit.api.js"></script>
+</head>
+
+<body>
+
+<script>
+
+var scene, camera, renderer;
+
+var slices = 37;
+var stacks = 37;
+
+var sourse, context, marker;
+
+initialize();
+animate();
+
+function initialize()
+{
+	scene = new THREE.Scene();
+
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
+	scene.add( ambientLight );
+				
+	camera = new THREE.Camera();
+	scene.add(camera);
+
+	renderer = new THREE.WebGLRenderer({
+		antialias : true,
+		alpha: true
+	});
+	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+	renderer.setSize( 1920,1080 );
+	renderer.domElement.style.position = 'absolute'
+	renderer.domElement.style.top = '0px'
+	renderer.domElement.style.left = '0px'
+	document.body.appendChild( renderer.domElement );
+
+	sourse = new THREEx.ArToolkitSource({
+		sourceType : 'webcam',
+	});
+
+	function onResize()
+	{
+		sourse.onResize()	
+		sourse.copySizeTo(renderer.domElement)	
+		if ( context.arController !== null )
+		{
+			sourse.copySizeTo(context.arController.canvas)	
+		}	
+	}
+
+	sourse.init(function onReady(){
+		onResize()
+	});
+	
+	window.addEventListener('resize', function(){
+		onResize()
+	});
+	
+
+	context = new THREEx.ArToolkitContext({
+		cameraParametersUrl: 'camera_para.dat',
+		detectionMode: 'mono'
+	});
+	
+
+	context.init( function onCompleted(){
+		camera.projectionMatrix.copy( context.getProjectionMatrix() );
+	});
+
+
+	marker = new THREE.Group();
+	scene.add(marker);
+	let markerControls1 = new THREEx.ArMarkerControls(context, marker, {
+		type: 'pattern', patternUrl: "pattern-6.patt",
+	})
+
+	for (const param of [-1, 1]) {
+				var geometry1 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
+				var material1 = new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000});
+				material1.side =  THREE.DoubleSide;
+				var mesh1 = new THREE.Mesh( geometry1, material1 );
+
+				var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
+				var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
+				material2.side =  THREE.DoubleSide;
+				var mesh2 = new THREE.Mesh( geometry2, material2 );
+			}
+		
+			function neoviusSurface(param = true){
+				return function(u0, v0, vec) {
+
+					let v = v0 * Math.PI * 2 - Math.PI;
+					let u = u0 * Math.PI * 2 - Math.PI;
+
+					vec.x = u;
+					vec.y = v;
+					vec.z = param * Math.acos(-3 * (Math.cos(u) + Math.cos(v))/(3 + 4*Math.cos(u)*Math.cos(v)));
+			}
+
+			};
+
+	marker.add( mesh1 );
+	marker.add( mesh2 );
+
+}
+
+
+function animate()
+{
+	requestAnimationFrame(animate);
+	if ( sourse.ready !== false )
+		context.update( sourse.domElement );
+	renderer.render( scene, camera );
+}
+
+</script>
+</body>
+</html>
