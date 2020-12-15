@@ -18,14 +18,12 @@
 
 var scene, camera, renderer;
 
-var arToolkitSource, arToolkitContext;
+var markerRoot, arToolkitSource, arToolkitContext;
 
-var markerRoot1, markerRoot2;
-
-initialize();
+init();
 animate();
 
-function initialize()
+function init()
 {
 	scene = new THREE.Scene();
 
@@ -105,15 +103,15 @@ function initialize()
 	});
 
 
-	markerRoot1 = new THREE.Group();
-	scene.add(markerRoot1);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+	markerRoot = new THREE.Group();
+	scene.add(markerRoot);
+	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: "pattern-6.patt",
 	})
 
 
-	markerRoot1.add( mesh );
-	markerRoot1.add( mesh1 );
+	markerRoot.add( mesh );
+	markerRoot.add( mesh1 );
 
 }
 
