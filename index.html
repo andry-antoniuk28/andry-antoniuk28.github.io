@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Title4</title>
-	<script src="http://mrdoob.github.io/three.js/build/three.min.js"></script>
-	<script src="threex-artoolkitsource.js"></script>
-	<script src="threex-artoolkitcontext.js"></script>
+    <title>Title</title>
+	<script src="three.js"></script>
+	<script src="threex-ToolkitSource.js"></script>
+	<script src="threex-ToolkitContext.js"></script>
 	<script src="threex-arbasecontrols.js"></script>
     <script src="threex-armarkercontrols.js"></script>
 	<script src="artoolkit.min.js"></script>
@@ -18,7 +18,7 @@
 
 var scene, camera, renderer;
 
-var markerRoot, arToolkitSource, arToolkitContext;
+var markerRoot, ToolkitSource, ToolkitContext;
 
 init();
 animate();
@@ -69,21 +69,21 @@ function init()
         mesh1 = new THREE.Mesh(geometry, material1);
 
 
-	arToolkitSource = new THREEx.ArToolkitSource({
+	ToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
 	});
 
 	function onResize()
 	{
-		arToolkitSource.onResize()	
-		arToolkitSource.copySizeTo(renderer.domElement)	
-		if ( arToolkitContext.arController !== null )
+		ToolkitSource.onResize()	
+		ToolkitSource.copySizeTo(renderer.domElement)	
+		if ( ToolkitContext.arController !== null )
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
+			ToolkitSource.copySizeTo(ToolkitContext.arController.canvas)	
 		}	
 	}
 
-	arToolkitSource.init(function onReady(){
+	ToolkitSource.init(function onReady(){
 		onResize()
 	});
 	
@@ -92,20 +92,20 @@ function init()
 	});
 	
 
-	arToolkitContext = new THREEx.ArToolkitContext({
+	ToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: 'camera_para.dat',
 		detectionMode: 'mono'
 	});
 	
 
-	arToolkitContext.init( function onCompleted(){
-		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+	ToolkitContext.init( function onCompleted(){
+		camera.projectionMatrix.copy( ToolkitContext.getProjectionMatrix() );
 	});
 
 
 	markerRoot = new THREE.Group();
 	scene.add(markerRoot);
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+	let markerControls1 = new THREEx.ArMarkerControls(ToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: "pattern-6.patt",
 	})
 
@@ -119,8 +119,8 @@ function init()
 function animate()
 {
 	requestAnimationFrame(animate);
-	if ( arToolkitSource.ready !== false )
-		arToolkitContext.update( arToolkitSource.domElement );
+	if ( ToolkitSource.ready !== false )
+		ToolkitContext.update( ToolkitSource.domElement );
 	renderer.render( scene, camera );
 }
 
