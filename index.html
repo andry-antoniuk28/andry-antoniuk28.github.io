@@ -38,7 +38,7 @@ var generateSurfacePortionFunction = function(param=true) {
 
     for (const param of [-1, 1]) {
 		var geometry = new THREE.ParametricGeometry( generateSurfacePortionFunction(param), 40, 40);
-		geometry.scale(5, 5, 5);
+		geometry.scale(0.1, 0.1, 0.1);
         var wireframe = new THREE.WireframeGeometry( geometry );
         var material = new THREE.LineBasicMaterial( {
             color: 0xffc0cb
