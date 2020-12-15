@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>My first three.js app</title>
+	<script src='three.js'></script>
+	<script src="threex-artoolkitsource.js"></script>
+	<script src="threex-artoolkitcontext.js"></script>
+	<script src="threex-arbasecontrols.js"></script>
+    <script src="threex-armarkercontrols.js"></script>
+	<script src="artoolkit.min.js"></script>
+	<script src="artoolkit.api.js"></script>
+</head>
+
+<body>
+
+
+<script>
+
+var scene, camera, renderer;
+
+var arToolkitSource, arToolkitContext;
+
+var markerRoot1, markerRoot2;
+
+initialize();
+animate();
+
+function initialize()
+{
+	scene = new THREE.Scene();
+
+	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
+	scene.add( ambientLight );
+				
+	camera = new THREE.Camera();
+	scene.add(camera);
+
+	renderer = new THREE.WebGLRenderer({
+		antialias : true,
+		alpha: true
+	});
+	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+	renderer.setSize( 1920,1080 );
+	renderer.domElement.style.position = 'absolute'
+	renderer.domElement.style.top = '0px'
+	renderer.domElement.style.left = '0px'
+	document.body.appendChild( renderer.domElement );
+
+	arToolkitSource = new THREEx.ArToolkitSource({
+		sourceType : 'webcam',
+	});
+
+	function onResize()
+	{
+		arToolkitSource.onResize()	
+		arToolkitSource.copySizeTo(renderer.domElement)	
+		if ( arToolkitContext.arController !== null )
+		{
+			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
+		}	
+	}
+
+	arToolkitSource.init(function onReady(){
+		onResize()
+	});
+	
+	window.addEventListener('resize', function(){
+		onResize()
+	});
+	
+
+	arToolkitContext = new THREEx.ArToolkitContext({
+		cameraParametersUrl: 'camera_para.dat',
+		detectionMode: 'mono'
+	});
+	
+
+	arToolkitContext.init( function onCompleted(){
+		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+	});
+
+
+	markerRoot1 = new THREE.Group();
+	scene.add(markerRoot1);
+	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+		type: 'pattern', patternUrl: "pattern-heart.patt",
+	})
+
+
+	function x0(v){
+        return c*Math.cos(v)*Math.cos(v)*Math.cos(v);
+    }
+
+    function y0(v){
+     return c*Math.sin(v)*Math.sin(v)*Math.sin(v);
+    }
+
+	var astroidalHelicoid = function(u, v, vector) {
+
+	let v0 = v * Math.PI * 2;
+	let u0 = u * Math.PI;
+	vector.x = (a + x0(v0)*Math.cos(t) + y0(v0)*Math.sin(t))*Math.cos(u0);
+	vector.y = (a + x0(v0)*Math.cos(t) + y0(v0)*Math.sin(t))*Math.sin(u0);
+	vector.z = b*u0 - x0(v0)*Math.sin(t) + y0(v0)*Math.cos(t);
+
+	};
+	var a = 0.5;
+    var b = 1;
+    var c = 1;
+	var t = Math.PI/4;
+			
+	var slices = 45, stacks = 45;
+
+	var geometry = new THREE.ParametricGeometry( astroidalHelicoid, slices, stacks );
+	geometry.center();
+
+	var material = new THREE.MeshNormalMaterial({wireframe:true});
+	var mesh = new THREE.Mesh( geometry, material ) ;
+
+	markerRoot1.add( mesh );
+
+}
+
+
+function animate()
+{
+	requestAnimationFrame(animate);
+	if ( arToolkitSource.ready !== false )
+		arToolkitContext.update( arToolkitSource.domElement );
+	renderer.render( scene, camera );
+}
+
+</script>
+</body>
+</html>
