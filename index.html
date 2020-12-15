@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>NUMВ4</title>
+    <title>PAS4</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
@@ -16,11 +16,7 @@
 
 <script>
 
-var scene, camera, renderer;
-
-var arToolkitSource, arToolkitContext;
-
-var markerRoot1, markerRoot2;
+var arToolkitSource, arToolkitContext, markerRoot1, markerRoot2, scene, camera, renderer;
 
 var generateSurfacePortionFunction = function(param=true) {
         return function(uI, vI, vec3) {
@@ -41,7 +37,8 @@ var generateSurfacePortionFunction = function(param=true) {
     var group = new THREE.Group();
 
     for (const param of [-1, 1]) {
-        var geometry = new THREE.ParametricGeometry( generateSurfacePortionFunction(param), 40, 40);
+		var geometry = new THREE.ParametricGeometry( generateSurfacePortionFunction(param), 40, 40);
+		geometry.scale(5, 5, 5);
         var wireframe = new THREE.WireframeGeometry( geometry );
         var material = new THREE.LineBasicMaterial( {
             color: 0xffffff
@@ -69,12 +66,11 @@ function initialize()
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	renderer.setSize( 700, 500 );
+	renderer.setSize( 700,500 );
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
 	document.body.appendChild( renderer.domElement );
-
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
