@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>PAS4</title>
+    <title>NUM4</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
@@ -69,11 +69,8 @@ function initialize()
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	renderer.setSize( 1920,1080 );
-	renderer.domElement.style.position = 'absolute'
-	renderer.domElement.style.top = '0px'
-	renderer.domElement.style.left = '0px'
-	document.body.appendChild( renderer.domElement );
+	renderer.setSize( 700, 500 );
+
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
