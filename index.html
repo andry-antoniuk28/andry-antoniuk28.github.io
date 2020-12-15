@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Title1</title>
+    <title>Title</title>
 	<script src="three.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
@@ -59,7 +59,8 @@ function init()
 
     };
 
-		geometry = new THREE.ParametricGeometry(virich, 100, 100);
+	geometry = new THREE.ParametricGeometry(virich, 100, 100);
+	geometry.scale(0.1, 0.1, 0.1);
         geometry.center();
 
         material = new THREE.MeshNormalMaterial({side: 2, wireframe: true})
