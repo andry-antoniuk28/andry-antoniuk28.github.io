@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>PAS4</title>
+    <title>DROBAHA</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
@@ -38,7 +38,7 @@ var generateSurfacePortionFunction = function(param=true) {
 
     for (const param of [-1, 1]) {
 		var geometry = new THREE.ParametricGeometry( generateSurfacePortionFunction(param), 40, 40);
-		geometry.scale(5, 5, 5);
+		geometry.scale(0.1, 0.1, 0.1);
         var wireframe = new THREE.WireframeGeometry( geometry );
         var material = new THREE.LineBasicMaterial( {
             color: 0xffffff
