@@ -88,11 +88,13 @@ function initialize()
 
 	for (const param of [-1, 1]) {
 				var geometry1 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
+				geometry1.scale(0.4, 0.4, 0.4);
 				var material1 = new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000});
 				material1.side =  THREE.DoubleSide;
 				var mesh1 = new THREE.Mesh( geometry1, material1 );
 
 				var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
+				geometry2.scale(0.4, 0.4, 0.4);
 				var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
 				material2.side =  THREE.DoubleSide;
 				var mesh2 = new THREE.Mesh( geometry2, material2 );
