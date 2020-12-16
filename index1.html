@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Practical Assignment 114</title>
+    <title>Practical Assignment 1114</title>
 	<script src="three.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
@@ -130,8 +130,8 @@ function initialize()
 function animate()
 {
 	requestAnimationFrame(animate);
-	group.rotation.x += 0.01;
-	group.rotation.y += 0.01;
+	//group.rotation.x += 0.01;
+	//group.rotation.y += 0.01;
 	if ( sourse.ready !== false )
 		context.update( sourse.domElement );
 	renderer.render( scene, camera );
