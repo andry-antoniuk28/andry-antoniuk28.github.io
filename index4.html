@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Practical Assignment 41</title>
+    <title>Practical Assignment 4</title>
 	<script src="three.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
@@ -15,7 +15,7 @@
 
 <script>
 
-var scene, camera, renderer;
+var scene, camera, renderer, mesh1, mesh2;
 
 var slices = 37;
 var stacks = 37;
@@ -91,13 +91,13 @@ function initialize()
 				geometry1.scale(0.4, 0.4, 0.4);
 				var material1 = new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000});
 				material1.side =  THREE.DoubleSide;
-				var mesh1 = new THREE.Mesh( geometry1, material1 );
+				mesh1 = new THREE.Mesh( geometry1, material1 );
 
 				var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
 				geometry2.scale(0.4, 0.4, 0.4);
 				var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
 				material2.side =  THREE.DoubleSide;
-				var mesh2 = new THREE.Mesh( geometry2, material2 );
+				mesh2 = new THREE.Mesh( geometry2, material2 );
 			}
 		
 			function neoviusSurface(param = true){
