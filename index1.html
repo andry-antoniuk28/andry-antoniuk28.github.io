@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Practical Assignment 1114</title>
+    <title>Practical Assignment 4</title>
 	<script src="three.js"></script>
 	<script src="threex-artoolkitcontext.js"></script>
 	<script src="threex-artoolkitsource.js"></script>
@@ -21,9 +21,8 @@ var slices = 37;
 var stacks = 37;
 
 var sourse, context, marker;
-	
-	
-	var group = new THREE.Group();
+
+var group = new THREE.Group();
 
 initialize();
 animate();
@@ -89,13 +88,12 @@ function initialize()
 		type: 'pattern', patternUrl: "pattern-diamond.patt",
 	})
 
-	var group = new THREE.Group();
 
 
 	for (const param of [-1, 1]) {
 				var geometry1 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
 				geometry1.scale(0.4, 0.4, 0.4);
-				var material1 = new THREE.MeshNormalMaterial({wireframe:true});
+				var material1 = new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000});
 				material1.side =  THREE.DoubleSide;
 				mesh1 = new THREE.Mesh( geometry1, material1 );
 
