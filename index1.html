@@ -127,10 +127,8 @@ function initialize()
 function animate()
 {
 	requestAnimationFrame(animate);
-	mesh1.rotation.x += 0.01;
-	mesh2.rotation.x += 0.01;
-	mesh1.rotation.y += 0.01;
-	mesh2.rotation.y += 0.01;
+	group.rotation.x += 0.01;
+	group.rotation.y += 0.01;
 	if ( sourse.ready !== false )
 		context.update( sourse.domElement );
 	renderer.render( scene, camera );
