@@ -89,15 +89,15 @@ function initialize()
 	for (const param of [-1, 1]) {
 				var geometry1 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
 				geometry1.scale(0.4, 0.4, 0.4);
-				var material1 = new THREE.MeshBasicMaterial({wireframe:true, color: 0x000000});
+				var material1 = new THREE.MeshNormalMaterial({wireframe:true});
 				material1.side =  THREE.DoubleSide;
 				mesh1 = new THREE.Mesh( geometry1, material1 );
 
-				var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
-				geometry2.scale(0.4, 0.4, 0.4);
-				var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
-				material2.side =  THREE.DoubleSide;
-				mesh2 = new THREE.Mesh( geometry2, material2 );
+				//var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
+				//geometry2.scale(0.4, 0.4, 0.4);
+				//var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
+				//material2.side =  THREE.DoubleSide;
+				//mesh2 = new THREE.Mesh( geometry2, material2 );
 			}
 		
 			function neoviusSurface(param = true){
@@ -114,7 +114,7 @@ function initialize()
 			};
 
 	marker.add( mesh1 );
-	marker.add( mesh2 );
+	//marker.add( mesh2 );
 
 }
 
@@ -123,9 +123,9 @@ function animate()
 {
 	requestAnimationFrame(animate);
 	mesh1.rotation.x += 0.01;
-	mesh2.rotation.x += 0.01;
+	//mesh2.rotation.x += 0.01;
 	mesh1.rotation.y += 0.01;
-	mesh2.rotation.y += 0.01;
+	//mesh2.rotation.y += 0.01;
 	if ( sourse.ready !== false )
 		context.update( sourse.domElement );
 	renderer.render( scene, camera );
