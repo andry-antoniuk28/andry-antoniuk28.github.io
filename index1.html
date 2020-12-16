@@ -92,7 +92,7 @@ function initialize()
 				var material1 = new THREE.MeshNormalMaterial({wireframe:true});
 				material1.side =  THREE.DoubleSide;
 				mesh1 = new THREE.Mesh( geometry1, material1 );
-
+				console.log(param);
 				//var geometry2 = new THREE.ParametricGeometry( neoviusSurface(param), slices, stacks);
 				//geometry2.scale(0.4, 0.4, 0.4);
 				//var material2 = new THREE.MeshBasicMaterial({color: 0xffffff});
